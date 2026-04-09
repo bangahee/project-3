@@ -219,6 +219,8 @@ def run_user_input_mode():
     filter_a = read_matrix_from_input(3, "필터 A")
     filter_b = read_matrix_from_input(3, "필터 B")
 
+    print("저장 확인: 필터 A, B 입력 완료")
+
     print("#----------------------------------------")
     print("# [2] 패턴 입력")
     print("#----------------------------------------")
@@ -241,12 +243,17 @@ def run_user_input_mode():
 
     print(f"A 점수: {score_a}")
     print(f"B 점수: {score_b}")
-    print(f"연산 시간(평균/10회): {avg_time:.6f} ms")
 
     if result_ab == "UNDECIDED":
         print(f"판정: 판정 불가 (|A-B| < {EPSILON})")
     else:
         print(f"판정: {result_ab}")
+
+    print("#----------------------------------------")
+    print("# [4] 성능 분석 (3x3, 평균/10회)")
+    print("#----------------------------------------")
+    print("크기\t평균 시간(ms)\t연산 횟수(N²)")
+    print(f"3x3\t{avg_time:.6f}\t{3 * 3}")
 
 
 def analyze_json_mode():
