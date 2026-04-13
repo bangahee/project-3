@@ -244,6 +244,7 @@ def run_user_input_mode():
 
     print(f"A 점수: {score_a}")
     print(f"B 점수: {score_b}")
+    print(f"연산 시간(평균/10회): {avg_time:.6f} ms")
 
     if result_ab == "UNDECIDED":
         print(f"판정: 판정 불가 (|A-B| < {EPSILON})")
@@ -306,7 +307,7 @@ def analyze_json_mode():
         size = extract_size_from_key(pattern_key)
         if size is None:
             reason = "패턴 키에서 크기 추출 실패"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
@@ -317,14 +318,14 @@ def analyze_json_mode():
 
         if expected_label == "UNKNOWN":
             reason = f"지원하지 않는 expected 라벨: {expected_raw}"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
 
         if size not in filters_by_size:
             reason = f"size_{size} 필터 없음"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
@@ -335,21 +336,21 @@ def analyze_json_mode():
 
         if cross_filter is None or x_filter is None:
             reason = "Cross 또는 X 필터 누락"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
 
         if not is_valid_matrix(pattern_matrix, size):
             reason = f"패턴 크기 불일치 또는 형식 오류 (expected {size}x{size})"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
 
         if not is_valid_matrix(cross_filter, size) or not is_valid_matrix(x_filter, size):
             reason = f"필터 크기 불일치 또는 형식 오류 (expected {size}x{size})"
-            print(f"FAIL: {reason}")
+            print(f"FAIL ({pattern_key}): {reason}")
             fail_count += 1
             fail_cases.append((pattern_key, reason))
             continue
@@ -393,14 +394,16 @@ def main():
     print("1. 사용자 입력 (3x3)")
     print("2. data.json 분석")
 
-    choice = input("선택: ").strip()
+    while True:
+        choice = input("선택: ").strip()
+        if choice in ("1", "2"):
+            break
+        print("잘못된 입력입니다. 1 또는 2를 선택하세요.")
 
     if choice == "1":
         run_user_input_mode()
     elif choice == "2":
         analyze_json_mode()
-    else:
-        print("잘못된 입력입니다. 1 또는 2를 선택하세요.")
         
 """
 Only run the full simulator when this file is executed directly,
