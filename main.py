@@ -150,7 +150,7 @@ def measure_average_time(func, repeat=10):
     """
     함수 실행 시간을 repeat회 측정하고 평균(ms)을 반환한다.
     I/O가 아니라 연산 함수 호출 구간 중심으로 측정한다.
-    + returns averagee that converts seconds to milliseconds
+    초 단위 측정값을 밀리초(ms)로 변환하여 반환한다.
     """
     total_time = 0.0
 
@@ -220,7 +220,7 @@ def run_user_input_mode():
     filter_a = read_matrix_from_input(3, "필터 A")
     filter_b = read_matrix_from_input(3, "필터 B")
 
-    print("저장 확인: 필터 A, B 입력 완료")
+    print("입력 확인: 필터 A, B 입력 완료")
 
     print("#----------------------------------------")
     print("# [2] 패턴 입력")
