@@ -150,6 +150,7 @@ def measure_average_time(func, repeat=10):
     """
     함수 실행 시간을 repeat회 측정하고 평균(ms)을 반환한다.
     I/O가 아니라 연산 함수 호출 구간 중심으로 측정한다.
+    + returns averagee that converts seconds to milliseconds
     """
     total_time = 0.0
 
@@ -400,7 +401,11 @@ def main():
         analyze_json_mode()
     else:
         print("잘못된 입력입니다. 1 또는 2를 선택하세요.")
-
+        
+"""
+Only run the full simulator when this file is executed directly,
+not when it is imported for reuse.
+"""
 
 if __name__ == "__main__":
     main()
